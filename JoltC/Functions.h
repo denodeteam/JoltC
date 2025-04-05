@@ -523,6 +523,7 @@ JPC_API void JPC_CastShapeCollector_delete(JPC_CastShapeCollector* object);
 
 JPC_API void JPC_CastShapeCollector_UpdateEarlyOutFraction(JPC_CastShapeCollector *self, float inFraction);
 
+#ifdef JPH_DEBUG_RENDERER
 ////////////////////////////////////////////////////////////////////////////////
 // DrawSettings
 
@@ -568,7 +569,7 @@ JPC_API JPC_DebugRendererSimple* JPC_DebugRendererSimple_new(
 	JPC_DebugRendererSimpleFns fns);
 
 JPC_API void JPC_DebugRendererSimple_delete(JPC_DebugRendererSimple* object);
-
+#endif
 ////////////////////////////////////////////////////////////////////////////////
 // String
 
@@ -1172,11 +1173,13 @@ JPC_API const JPC_BodyLockInterface* JPC_PhysicsSystem_GetBodyLockInterface(JPC_
 
 JPC_API const JPC_NarrowPhaseQuery* JPC_PhysicsSystem_GetNarrowPhaseQuery(const JPC_PhysicsSystem* self);
 
+#ifdef JPH_DEBUG_RENDERER
 JPC_API void JPC_PhysicsSystem_DrawBodies(
 	JPC_PhysicsSystem* self,
 	JPC_BodyManager_DrawSettings* inSettings,
 	JPC_DebugRendererSimple* inRenderer, // FIXME: un-specialize
 	const void* inBodyFilter); // FIXME: BodyDrawFilter
+#endif
 
 JPC_API void JPC_PhysicsSystem_SetSimShapeFilter(JPC_PhysicsSystem* self, const JPC_SimShapeFilter* inShapeFilter);
 

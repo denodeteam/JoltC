@@ -79,6 +79,7 @@ static JPC_ObjectLayerPairFilterFns Hello_OVO = {
 	.ShouldCollide = Hello_OVO_ShouldCollide,
 };
 
+#ifdef JPH_DEBUG_RENDERER
 void Hello_Debug_DrawLine(const void *self, JPC_RVec3 inFrom, JPC_RVec3 inTo, JPC_Color inColor) {
 	// printf("Draw line from (%f, %f, %f) to (%f, %f, %f) with color (%d, %d, %d)\n",
 	// 	inFrom.x, inFrom.y, inFrom.z, inTo.x, inTo.y, inTo.z, inColor.r, inColor.g, inColor.b);
@@ -87,6 +88,7 @@ void Hello_Debug_DrawLine(const void *self, JPC_RVec3 inFrom, JPC_RVec3 inTo, JP
 static JPC_DebugRendererSimpleFns Hello_DebugRenderer = {
 	.DrawLine = Hello_Debug_DrawLine,
 };
+#endif
 
 int main() {
 	JPC_RegisterDefaultAllocator();
@@ -175,10 +177,12 @@ int main() {
 
 	JPC_BodyInterface_SetLinearVelocity(body_interface, sphere_id, JPC_Vec3{0.0, -5.0, 0.0});
 
+	#ifdef JPH_DEBUG_RENDERER
 	JPC_DebugRendererSimple* debug_renderer = JPC_DebugRendererSimple_new(nullptr, Hello_DebugRenderer);
 	JPC_BodyManager_DrawSettings draw_settings;
 	JPC_BodyManager_DrawSettings_default(&draw_settings);
 	JPC_PhysicsSystem_DrawBodies(physics_system, &draw_settings, debug_renderer, nullptr);
+	#endif
 
 	JPC_PhysicsSystem_OptimizeBroadPhase(physics_system);
 

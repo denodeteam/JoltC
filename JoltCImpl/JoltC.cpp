@@ -27,7 +27,9 @@
 #include <Jolt/Physics/PhysicsSystem.h>
 #include <Jolt/RegisterTypes.h>
 
+#ifdef JPH_DEBUG_RENDERER
 #include <Jolt/Renderer/DebugRendererSimple.h>
+#endif
 
 #include <JoltC/JoltC.h>
 
@@ -121,7 +123,9 @@ DESTRUCTOR(JPC_IndexedTriangleList)
 OPAQUE_WRAPPER(JPC_String, JPH::String)
 DESTRUCTOR(JPC_String)
 
+#ifdef JPH_DEBUG_RENDERER
 LAYOUT_COMPATIBLE(JPC_BodyManager_DrawSettings, JPH::BodyManager::DrawSettings)
+#endif
 
 LAYOUT_COMPATIBLE(JPC_BodyID, JPH::BodyID)
 
@@ -738,6 +742,7 @@ JPC_API void JPC_CastShapeCollector_UpdateEarlyOutFraction(JPC_CastShapeCollecto
 	to_jph(self)->UpdateEarlyOutFraction(inFraction);
 }
 
+#ifdef JPH_DEBUG_RENDERER
 ////////////////////////////////////////////////////////////////////////////////
 // BodyManager::DrawSettings
 
@@ -779,6 +784,7 @@ JPC_API JPC_DebugRendererSimple* JPC_DebugRendererSimple_new(
 {
 	return to_jpc(new JPC_DebugRendererSimpleBridge(self, fns));
 }
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // String
@@ -2177,6 +2183,7 @@ JPC_API JPC_PhysicsUpdateError JPC_PhysicsSystem_Update(
 	return to_integral(res);
 }
 
+#ifdef JPH_DEBUG_RENDERER
 JPC_API void JPC_PhysicsSystem_DrawBodies(
 	JPC_PhysicsSystem* self,
 	JPC_BodyManager_DrawSettings* inSettings,
@@ -2185,6 +2192,7 @@ JPC_API void JPC_PhysicsSystem_DrawBodies(
 {
 	to_jph(self)->DrawBodies(to_jph(*inSettings), to_jph(inRenderer), nullptr);
 }
+#endif
 
 JPC_API void JPC_PhysicsSystem_SetSimShapeFilter(
 	JPC_PhysicsSystem* self,
